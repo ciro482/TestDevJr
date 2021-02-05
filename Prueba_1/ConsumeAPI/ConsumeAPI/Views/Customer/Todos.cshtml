@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ConsumeAPI.Models.todosViewModel>
+
+@{
+    ViewBag.Title = "Todos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Todos</h2>
+
+<p>
+    @Html.ActionLink("Crear nueva tarea", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.completed)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OrderByDescending(i => i.id))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.completed)
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.ActionLink("Regresar", "Index")

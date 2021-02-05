@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ConsumeAPI.Models.CustomerViewModel>
+
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de usuarios</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Usuario
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @{var aux = @Html.DisplayFor(modelItem => item.name);}
+            @Html.ActionLink(aux.ToString(), "Details", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
