@@ -1,0 +1,28 @@
+///////Crear base de datos
+CREATE DATABASE DatosPracticaSQL;
+USE DatosPracticaSQL;
+CREATE TABLE costos(tipoDeLlamada VARCHAR(15) PRIMARY KEY, costo decimal(10,4));
+CREATE TABLE logDial(idLlamada VARCHAR(10) PRIMARY KEY, fechaDeLlamada datetime, tiempoDialogo  smallint, telefono varchar(10),tipoDeLlamada   VARCHAR(15), CONSTRAINT fk_tipoDeLlamada  FOREIGN KEY (tipoDeLlamada) REFERENCES dbo.costos(tipoDeLlamada));
+
+
+/// Ejercicios
+
+Que muestre los registros con tipo de llamada Cel LD durante el mes febrero (5 puntos)
+SELECT *
+FROM logDial l
+INNER JOIN costos c
+ON c.[tipoDeLlamada ] = l.tipoDeLlamada WHERE l.tipoDeLlamada = 'Cel LD' AND MONTH(convert(varchar, l.fechaDeLlamada, 1)) = 2;
+
+
+Que indique el promedio de tiempo de dialogo de las llamadas con tipo Cel LD durante el mes de febrero (5 puntos)
+SELECT AVG(l.tiempoDialogo)
+FROM logDial l
+INNER JOIN costos c
+ON c.[tipoDeLlamada ] = l.tipoDeLlamada WHERE l.tipoDeLlamada = 'Cel LD' AND MONTH(convert(varchar, l.fechaDeLlamada, 1)) = 2;
+
+
+Que muestre el número en minutos de dialogo (tomando tiempoDialogo que está en segundos) y el costo de todas las llamadas del mes de enero (10 puntos)
+SELECT l.tiempoDialogo/60, c.costo*(l.tiempoDialogo/60)
+FROM logDial l
+INNER JOIN costos c
+ON c.[tipoDeLlamada ] = l.tipoDeLlamada WHERE MONTH(convert(varchar, l.fechaDeLlamada, 1)) = 1;
